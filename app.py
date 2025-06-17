@@ -81,6 +81,7 @@ from components.api_integration import (
     create_api_data_section, create_real_time_dashboard, 
     create_data_streaming_simulation
 )
+from components.weather_predictor import create_weather_prediction_section
 from utils.helpers import toggle_theme, display_data_summary as detailed_summary, create_download_section, add_footer
 
 # Page configuration
@@ -139,9 +140,9 @@ def main():
         
         if len(numeric_columns) >= 2:
             # Create enhanced tabs
-            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+            tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
                 "📈 Visualization", "🤖 Model Training", "🔧 Advanced Features", 
-                "🌐 Real-time Dashboard", "📋 Data Analysis", "💾 Export"
+                "🌐 Real-time Dashboard", "🌦️ Weather Prediction", "📋 Data Analysis", "💾 Export"
             ])
             
             # Visualization Tab
@@ -251,13 +252,18 @@ def main():
                 st.divider()
                 create_data_streaming_simulation()
             
-            # Data Analysis Tab
+            # Weather Prediction Tab
             with tab5:
+                # Create weather prediction section
+                create_weather_prediction_section(df)
+            
+            # Data Analysis Tab
+            with tab6:
                 st.header("📋 Detailed Data Analysis")
                 detailed_summary(df)
             
             # Export Tab
-            with tab6:
+            with tab7:
                 st.header("💾 Export Options")
                 create_download_section(df)
         
